@@ -121,6 +121,12 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(`搜索功能演示: "${query}"`);
         }
     }
+    
+    // 初始化主题切换功能
+    initThemeToggle();
+    
+    // 初始化Logo循环功能
+    initLogoLoop();
 });
 
 // 工具函数：平滑滚动到指定元素
@@ -161,20 +167,100 @@ function getCookie(name) {
 }
 
 // 主题切换功能
-function toggleTheme() {
-    const html = document.documentElement;
-    if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        setCookie('theme', 'light', 30);
-    } else {
-        html.classList.add('dark');
-        setCookie('theme', 'dark', 30);
+function initThemeToggle() {
+    const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+    const htmlElement = document.documentElement;
+    
+    // Check for saved theme or respect system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const currentTheme = savedTheme || systemTheme;
+    
+    // Apply theme
+    if (currentTheme === 'dark') {
+        htmlElement.classList.add('dark');
+    }
+    
+    // Toggle theme function
+    function toggleTheme() {
+        if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    
+    // Add event listeners to toggle buttons
+    themeToggleBtns.forEach(btn => {
+        btn.addEventListener('click', toggleTheme);
+    });
+}
+
+// Logo循环功能
+function initLogoLoop() {
+    // Check if we're on the homepage (where the logo loop should appear)
+    const logoLoopContainer = document.getElementById('logo-loop-container');
+    if (!logoLoopContainer) return;
+    
+    // Sample logos data
+    const logos = [
+        { node: '<i class="fab fa-react"></i>', title: "React", href: "https://react.dev" },
+        { node: '<i class="fab fa-angular"></i>', title: "Angular", href: "https://angular.io" },
+        { node: '<i class="fab fa-vuejs"></i>', title: "Vue.js", href: "https://vuejs.org" },
+        { node: '<i class="fab fa-node-js"></i>', title: "Node.js", href: "https://nodejs.org" },
+        { node: '<i class="fab fa-python"></i>', title: "Python", href: "https://www.python.org" },
+        { node: '<i class="fab fa-java"></i>', title: "Java", href: "https://www.java.com" }
+    ];
+    
+    const track = document.getElementById('logo-track');
+    if (track) {
+        // Create logo items
+        let logoItems = '';
+        // We'll create multiple copies for seamless looping
+        for (let i = 0; i < 3; i++) {
+            logos.forEach(logo => {
+                logoItems += `
+                    <ul class="logoloop__list" role="list">
+                        <li class="logoloop__item" role="listitem">
+                            ${logo.href ? 
+                                `<a class="logoloop__link" href="${logo.href}" target="_blank" rel="noreferrer noopener" aria-label="${logo.title || 'logo link'}">
+                                    ${logo.node}
+                                </a>` : 
+                                `<span class="logoloop__node" aria-hidden="true">${logo.node}</span>`
+                            }
+                        </li>
+                    </ul>`;
+            });
+        }
+        
+        track.innerHTML = logoItems;
+        
+        // Animation logic
+        let offset = 0;
+        const speed = 0.5; // Pixels per frame
+        
+        function animate() {
+            offset -= speed;
+            const seqWidth = track.firstElementChild.offsetWidth;
+            if (Math.abs(offset) >= seqWidth) {
+                offset = 0;
+            }
+            track.style.transform = `translateX(${offset}px)`;
+            requestAnimationFrame(animate);
+        }
+        
+        // Start animation
+        if (logos.length > 0) {
+            requestAnimationFrame(animate);
+        }
     }
 }
 
 // 初始化主题
 document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = getCookie('theme');
+    const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
     } else if (savedTheme === 'light') {

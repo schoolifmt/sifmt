@@ -7,7 +7,7 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
 -->
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,7 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .glass-effect {
@@ -42,13 +43,23 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .glass-effect {
+            background: rgba(30, 30, 30, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .hero-section {
             height: 60vh;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)), var(--background-image);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7)), var(--background-image);
             background-size: cover;
             background-position: center;
+        }
+        
+        .dark .hero-section {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), var(--background-image);
         }
         
         .announcement-card:hover {
@@ -60,14 +71,128 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             transition: all 0.3s ease;
         }
         
-        @media (prefers-color-scheme: dark) {
-            .glass-effect {
-                background: rgba(30, 30, 30, 0.3);
+        .text-improved {
+            color: #1e293b;
+        }
+        
+        .dark .text-improved {
+            color: #f1f5f9;
+        }
+        
+        .dark {
+            background-color: #0f172a;
+        }
+        
+        .dark body {
+            background-image: var(--background-image);
+        }
+        
+        /* Smooth transitions for theme switching */
+        .transition-theme {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
+        }
+        
+        /* Logo Loop Styles */
+        .logoloop {
+            position: relative;
+            --logoloop-gap: 40px;
+            --logoloop-logoHeight: 48px;
+            --logoloop-fadeColorAuto: #ffffff;
+        }
+        
+        .dark .logoloop {
+            --logoloop-fadeColorAuto: #0f172a;
+        }
+        
+        .logoloop--horizontal {
+            width: 100%;
+        }
+        
+        .logoloop__track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+            user-select: none;
+            position: relative;
+            z-index: 0;
+        }
+        
+        .logoloop__list {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logoloop__item {
+            flex: 0 0 auto;
+            margin-right: var(--logoloop-gap);
+            font-size: var(--logoloop-logoHeight);
+            line-height: 1;
+        }
+        
+        .logoloop__item:last-child {
+            margin-right: var(--logoloop-gap);
+        }
+        
+        .logoloop__node {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .logoloop__item svg {
+            height: var(--logoloop-logoHeight);
+            width: auto;
+            display: block;
+        }
+        
+        .logoloop__link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: opacity 0.2s ease;
+        }
+        
+        .logoloop__link:hover {
+            opacity: 0.8;
+        }
+        
+        .logoloop--fade::before,
+        .logoloop--fade::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: clamp(24px, 8%, 120px);
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .logoloop--fade::before {
+            left: 0;
+            background: linear-gradient(
+                to right,
+                var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+                rgba(0, 0, 0, 0) 100%
+            );
+        }
+        
+        .logoloop--fade::after {
+            right: 0;
+            background: linear-gradient(
+                to left,
+                var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+                rgba(0, 0, 0, 0) 100%
+            );
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .logoloop__track {
+                transform: translate3d(0, 0, 0) !important;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 transition-theme">
     <!-- Header -->
     <header class="glass-effect sticky top-0 z-50 border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -80,12 +205,21 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
                 <a href="index.html" class="px-3 py-2 rounded-lg bg-white/10 text-white font-medium">首页</a>
                 <a href="announcements.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">公告</a>
                 <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
-                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+                <button id="theme-toggle" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
             </nav>
             
-            <button id="mobile-menu-button" class="md:hidden text-white">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
+            <div class="flex items-center space-x-2 md:hidden">
+                <button id="theme-toggle-mobile" class="text-white p-2">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <button id="mobile-menu-button" class="text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
         
         <!-- Mobile menu -->
@@ -93,7 +227,6 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             <a href="index.html" class="block px-3 py-2 rounded-lg bg-white/10 text-white font-medium">首页</a>
             <a href="announcements.html" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">公告</a>
             <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
-            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
         </div>
     </header>
 
@@ -109,6 +242,17 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
                 <a href="#featured" class="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center">
                     <i class="fas fa-star mr-2"></i> 重要公告
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Loop Section -->
+    <section class="py-8 glass-effect">
+        <div class="container mx-auto px-4">
+            <div class="logoloop logoloop--horizontal logoloop--fade" id="logo-loop-container">
+                <div class="logoloop__track" id="logo-track">
+                    <!-- Logos will be populated by JavaScript -->
+                </div>
             </div>
         </div>
     </section>
@@ -285,12 +429,6 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
                 
                 <div class="flex space-x-6">
                     <a href="#" class="text-white/70 hover:text-white transition">
-                        <i class="fab fa-weixin text-xl"></i>
-                    </a>
-                    <a href="#" class="text-white/70 hover:text-white transition">
-                        <i class="fab fa-weibo text-xl"></i>
-                    </a>
-                    <a href="#" class="text-white/70 hover:text-white transition">
                         <i class="fas fa-envelope text-xl"></i>
                     </a>
                 </div>
@@ -302,11 +440,102 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
         </div>
     </footer>
 
-    <!-- JavaScript for mobile menu toggle -->
+    <!-- JavaScript for mobile menu toggle, theme switch, and logo loop -->
     <script>
+        // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+        });
+        
+        // Theme toggle functionality
+        function initTheme() {
+            const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+            const htmlElement = document.documentElement;
+            
+            // Check for saved theme or respect system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const currentTheme = savedTheme || systemTheme;
+            
+            // Apply theme
+            if (currentTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            }
+            
+            // Toggle theme function
+            function toggleTheme() {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+            
+            // Add event listeners to toggle buttons
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', toggleTheme);
+            });
+        }
+        
+        // Initialize theme on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            
+            // Logo loop functionality
+            const logos = [
+                { node: '<i class="fab fa-react"></i>', title: "React", href: "https://react.dev" },
+                { node: '<i class="fab fa-angular"></i>', title: "Angular", href: "https://angular.io" },
+                { node: '<i class="fab fa-vuejs"></i>', title: "Vue.js", href: "https://vuejs.org" },
+                { node: '<i class="fab fa-node-js"></i>', title: "Node.js", href: "https://nodejs.org" },
+                { node: '<i class="fab fa-python"></i>', title: "Python", href: "https://www.python.org" },
+                { node: '<i class="fab fa-java"></i>', title: "Java", href: "https://www.java.com" }
+            ];
+            
+            const track = document.getElementById('logo-track');
+            if (track) {
+                // Create logo items
+                let logoItems = '';
+                // We'll create multiple copies for seamless looping
+                for (let i = 0; i < 3; i++) {
+                    logos.forEach(logo => {
+                        logoItems += `
+                            <ul class="logoloop__list" role="list">
+                                <li class="logoloop__item" role="listitem">
+                                    ${logo.href ? 
+                                        `<a class="logoloop__link" href="${logo.href}" target="_blank" rel="noreferrer noopener" aria-label="${logo.title || 'logo link'}">
+                                            ${logo.node}
+                                        </a>` : 
+                                        `<span class="logoloop__node" aria-hidden="true">${logo.node}</span>`
+                                    }
+                                </li>
+                            </ul>`;
+                    });
+                }
+                
+                track.innerHTML = logoItems;
+                
+                // Animation logic
+                let offset = 0;
+                const speed = 0.5; // Pixels per frame
+                
+                function animate() {
+                    offset -= speed;
+                    const seqWidth = track.firstElementChild.offsetWidth;
+                    if (Math.abs(offset) >= seqWidth) {
+                        offset = 0;
+                    }
+                    track.style.transform = `translateX(${offset}px)`;
+                    requestAnimationFrame(animate);
+                }
+                
+                // Start animation
+                if (logos.length > 0) {
+                    requestAnimationFrame(animate);
+                }
+            }
         });
     </script>
 </body>

@@ -7,7 +7,7 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
 -->
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,11 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             background-position: center;
             background-attachment: fixed;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .dark body {
+            background-color: #0f172a;
         }
         
         .glass-effect {
@@ -42,6 +47,12 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .glass-effect {
+            background: rgba(30, 30, 30, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .form-input {
@@ -60,14 +71,21 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             color: rgba(255, 255, 255, 0.5);
         }
         
-        @media (prefers-color-scheme: dark) {
-            .glass-effect {
-                background: rgba(30, 30, 30, 0.3);
-            }
+        .text-improved {
+            color: #1e293b;
+        }
+        
+        .dark .text-improved {
+            color: #f1f5f9;
+        }
+        
+        /* Smooth transitions for theme switching */
+        .transition-theme {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease;
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 transition-theme">
     <!-- Header -->
     <header class="glass-effect sticky top-0 z-50 border-b border-white/10">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -76,11 +94,24 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
                 <h1 class="text-xl font-bold text-white">希望学院</h1>
             </div>
             
+            <div class="flex items-center space-x-2 md:hidden">
+                <button id="theme-toggle-mobile" class="text-white p-2">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <button id="mobile-menu-button" class="text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
             <nav class="hidden md:flex space-x-1">
                 <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">首页</a>
                 <a href="announcements.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">公告</a>
                 <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
-                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+                <button id="theme-toggle" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
             </nav>
             
             <button id="mobile-menu-button" class="md:hidden text-white">
@@ -297,12 +328,6 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
                 
                 <div class="flex space-x-6">
                     <a href="#" class="text-white/70 hover:text-white transition">
-                        <i class="fab fa-weixin text-xl"></i>
-                    </a>
-                    <a href="#" class="text-white/70 hover:text-white transition">
-                        <i class="fab fa-weibo text-xl"></i>
-                    </a>
-                    <a href="#" class="text-white/70 hover:text-white transition">
                         <i class="fas fa-envelope text-xl"></i>
                     </a>
                 </div>
@@ -314,7 +339,7 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
         </div>
     </footer>
 
-    <!-- JavaScript for form handling and mobile menu toggle -->
+    <!-- JavaScript for form handling, mobile menu toggle and theme switch -->
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -343,6 +368,43 @@ BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c
             
             // Reset form
             this.reset();
+        });
+        
+        // Theme toggle functionality
+        function initTheme() {
+            const themeToggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+            const htmlElement = document.documentElement;
+            
+            // Check for saved theme or respect system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const currentTheme = savedTheme || systemTheme;
+            
+            // Apply theme
+            if (currentTheme === 'dark') {
+                htmlElement.classList.add('dark');
+            }
+            
+            // Toggle theme function
+            function toggleTheme() {
+                if (htmlElement.classList.contains('dark')) {
+                    htmlElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    htmlElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+            
+            // Add event listeners to toggle buttons
+            themeToggleBtns.forEach(btn => {
+                btn.addEventListener('click', toggleTheme);
+            });
+        }
+        
+        // Initialize theme on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
         });
     </script>
 </body>
