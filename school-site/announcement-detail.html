@@ -1,0 +1,424 @@
+<!-- 
+可替换变量:
+SCHOOL_NAME = 希望学院
+LOGO_PATH = https://placehold.co/100x100?text=Logo
+PRIMARY_COLOR_HEX = #3b82f6
+BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c9f1
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期末考试时间安排 - 希望学院</title>
+    <meta name="description" content="2025-2026学年第一学期期末考试时间表已发布，请同学们及时查看">
+    <meta property="og:title" content="期末考试时间安排 - 希望学院">
+    <meta property="og:description" content="2025-2026学年第一学期期末考试时间表已发布，请同学们及时查看">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1');
+        }
+        
+        body {
+            background-image: var(--background-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .glass-effect {
+            background: rgba(30, 30, 30, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .badge {
+            transition: all 0.3s ease;
+        }
+        
+        .image-gallery {
+            scroll-behavior: smooth;
+        }
+        
+        .gallery-item {
+            scroll-snap-align: center;
+        }
+        
+        /* Dark mode styles */
+        .dark body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        .dark .text-white {
+            color: #f1f5f9;
+        }
+        
+        .dark .text-white\/80 {
+            color: rgb(241 245 249 / 0.8);
+        }
+        
+        .dark .text-white\/70 {
+            color: rgb(241 245 249 / 0.7);
+        }
+        
+        .dark .text-white\/90 {
+            color: rgb(241 245 249 / 0.9);
+        }
+        
+        /* Theme transition */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-50 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://placehold.co/100x100?text=Logo" alt="希望学院 Logo" class="h-12 w-12 rounded-full object-contain">
+                <h1 class="text-xl font-bold text-white">希望学院</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-1">
+                <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">首页</a>
+                <a href="announcements.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">公告</a>
+                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
+                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+            </nav>
+            
+            <!-- Theme toggle button -->
+            <div class="flex items-center space-x-3">
+                <button id="theme-toggle" class="text-white p-2 rounded-full hover:bg-white/10 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-3 space-y-2">
+            <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">首页</a>
+            <a href="announcements.html" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">公告</a>
+            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
+            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="py-4 glass-effect">
+        <div class="container mx-auto px-4">
+            <nav class="text-white/80 text-sm">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="index.html" class="hover:text-white transition">首页</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li><a href="announcements.html" class="hover:text-white transition">所有公告</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li class="text-white">期末考试时间安排</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <main class="container mx-auto px-4 py-8">
+        <article class="glass-effect rounded-xl overflow-hidden">
+            <!-- Article Header -->
+            <header class="p-6 border-b border-white/10">
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                    <span class="badge bg-red-500/20 text-red-300 text-xs font-semibold px-2.5 py-1 rounded">置顶</span>
+                    <span class="badge bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded">学术</span>
+                </div>
+                
+                <h1 class="text-3xl font-bold text-white mb-4">2025-2026学年第一学期期末考试时间安排</h1>
+                
+                <div class="flex flex-wrap items-center text-white/80 text-sm gap-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>教务处</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="far fa-calendar-alt mr-2"></i>
+                        <span>2025年12月5日</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-eye mr-2"></i>
+                        <span>浏览: 1245</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Article Body -->
+            <div class="p-6">
+                <div class="prose prose-invert max-w-none">
+                    <p class="text-white/90 mb-4">
+                        各位同学请注意，2025-2026学年第一学期期末考试时间表已经确定，请各位同学合理安排复习时间，
+                        认真备考。具体时间安排如下：
+                    </p>
+                    
+                    <h2 class="text-xl font-bold text-white mt-6 mb-3">考试时间安排</h2>
+                    
+                    <table class="min-w-full text-white/90 mb-6">
+                        <thead>
+                            <tr class="border-b border-white/20">
+                                <th class="py-2 text-left">日期</th>
+                                <th class="py-2 text-left">时间</th>
+                                <th class="py-2 text-left">科目</th>
+                                <th class="py-2 text-left">考场</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-white/10">
+                                <td class="py-2">2026年1月10日</td>
+                                <td class="py-2">08:30-10:30</td>
+                                <td class="py-2">高等数学A</td>
+                                <td class="py-2">教学楼A101-A103</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-2">2026年1月10日</td>
+                                <td class="py-2">14:00-16:00</td>
+                                <td class="py-2">大学英语B</td>
+                                <td class="py-2">教学楼B201-B205</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-2">2026年1月11日</td>
+                                <td class="py-2">08:30-10:30</td>
+                                <td class="py-2">计算机基础</td>
+                                <td class="py-2">实验楼C301-C304</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-2">2026年1月11日</td>
+                                <td class="py-2">14:00-16:00</td>
+                                <td class="py-2">大学物理</td>
+                                <td class="py-2">教学楼A201-A204</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h2 class="text-xl font-bold text-white mt-6 mb-3">注意事项</h2>
+                    
+                    <ul class="list-disc pl-5 text-white/90 mb-4 space-y-2">
+                        <li>请携带学生证和身份证参加考试</li>
+                        <li>提前30分钟到达考场</li>
+                        <li>考试期间关闭手机等电子设备</li>
+                        <li>遵守考场纪律，诚信应考</li>
+                        <li>如有疑问，请联系教务处：010-12345678</li>
+                    </ul>
+                    
+                    <p class="text-white/90 mb-6">
+                        祝各位同学考试顺利！
+                    </p>
+                </div>
+                
+                <!-- Image Gallery -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-3">相关图片</h3>
+                    <div class="image-gallery flex overflow-x-auto gap-4 pb-4 snap-mandatory snap-x">
+                        <div class="gallery-item flex-shrink-0 w-64 h-48 rounded-lg overflow-hidden snap-center">
+                            <img src="https://images.unsplash.com/photo-1560049278-1e436f4c7505?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" 
+                                 alt="期末考试安排表" class="w-full h-full object-cover">
+                        </div>
+                        <div class="gallery-item flex-shrink-0 w-64 h-48 rounded-lg overflow-hidden snap-center">
+                            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" 
+                                 alt="考场分布图" class="w-full h-full object-cover">
+                        </div>
+                        <div class="gallery-item flex-shrink-0 w-64 h-48 rounded-lg overflow-hidden snap-center">
+                            <img src="https://images.unsplash.com/photo-1536057269195-07e3d5b7d360?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80" 
+                                 alt="复习资料推荐" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Attachments -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-3">附件下载</h3>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/20 text-blue-300 mr-3">
+                                <i class="far fa-file-pdf text-xl"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-medium text-white group-hover:text-blue-300 transition">期末考试时间安排表.pdf</h4>
+                                <p class="text-xs text-white/70">PDF文件, 256KB</p>
+                            </div>
+                            <i class="fas fa-download text-white/50 group-hover:text-white transition"></i>
+                        </a>
+                        
+                        <a href="#" class="flex items-center p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group">
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-green-500/20 text-green-300 mr-3">
+                                <i class="far fa-file-excel text-xl"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-medium text-white group-hover:text-green-300 transition">考场分布表.xlsx</h4>
+                                <p class="text-xs text-white/70">Excel文件, 128KB</p>
+                            </div>
+                            <i class="fas fa-download text-white/50 group-hover:text-white transition"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="badge bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded">期末考试</span>
+                    <span class="badge bg-purple-500/20 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded">时间安排</span>
+                    <span class="badge bg-green-500/20 text-green-300 text-xs font-semibold px-2.5 py-1 rounded">教务通知</span>
+                </div>
+            </div>
+            
+            <!-- Article Footer -->
+            <footer class="p-6 border-t border-white/10">
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex items-center">
+                        <button class="flex items-center text-white/80 hover:text-white transition">
+                            <i class="far fa-thumbs-up mr-1"></i>
+                            <span>24</span>
+                        </button>
+                        <button class="flex items-center ml-4 text-white/80 hover:text-white transition">
+                            <i class="far fa-share-square mr-1"></i>
+                            <span>分享</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        <button class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </article>
+        
+        <!-- Related Articles -->
+        <section class="mt-8">
+            <h2 class="text-2xl font-bold text-white mb-6">相关公告</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Related Article 1 -->
+                <article class="glass-effect rounded-xl overflow-hidden transition duration-300 hover:scale-[1.02]">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="badge bg-yellow-500/20 text-yellow-300 text-xs font-semibold px-2.5 py-1 rounded">重要</span>
+                            <span class="text-xs text-white/70">2025-12-03</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">补考安排通知</h3>
+                        <p class="text-white/80 text-sm mb-4">2024-2025学年第二学期补考时间安排已发布...</p>
+                        <a href="#" class="text-blue-300 hover:text-blue-200 text-sm flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+                
+                <!-- Related Article 2 -->
+                <article class="glass-effect rounded-xl overflow-hidden transition duration-300 hover:scale-[1.02]">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="badge bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded">学术</span>
+                            <span class="text-xs text-white/70">2025-12-01</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">选课通知</h3>
+                        <p class="text-white/80 text-sm mb-4">2025-2026学年第二学期选课将于12月中旬开始...</p>
+                        <a href="#" class="text-blue-300 hover:text-blue-200 text-sm flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+                
+                <!-- Related Article 3 -->
+                <article class="glass-effect rounded-xl overflow-hidden transition duration-300 hover:scale-[1.02]">
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="badge bg-green-500/20 text-green-300 text-xs font-semibold px-2.5 py-1 rounded">行政</span>
+                            <span class="text-xs text-white/70">2025-11-28</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">成绩查询通知</h3>
+                        <p class="text-white/80 text-sm mb-4">本学期期中考试成绩现已可以查询...</p>
+                        <a href="#" class="text-blue-300 hover:text-blue-200 text-sm flex items-center">
+                            查看详情 <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/10 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://placehold.co/100x100?text=Logo" alt="希望学院 Logo" class="h-10 w-10 rounded-full object-contain">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">希望学院</h3>
+                            <p class="text-white/70 text-sm">公告信息发布平台</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/70 hover:text-white transition">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-6 pt-6 text-center text-white/70 text-sm">
+                <p>&copy; 2025 希望学院. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for theme toggle and mobile menu -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or respect system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const currentTheme = savedTheme || systemTheme;
+        
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            
+            // Save theme preference
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

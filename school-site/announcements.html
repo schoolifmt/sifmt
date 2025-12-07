@@ -1,0 +1,437 @@
+<!-- 
+可替换变量:
+SCHOOL_NAME = 希望学院
+LOGO_PATH = https://placehold.co/100x100?text=Logo
+PRIMARY_COLOR_HEX = #3b82f6
+BACKGROUND_IMAGE_URL = https://images.unsplash.com/photo-1523050854058-8df90110c9f1
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有公告 - 希望学院</title>
+    <meta name="description" content="希望学院所有公告列表">
+    <meta property="og:title" content="所有公告 - 希望学院">
+    <meta property="og:description" content="希望学院所有公告列表">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1');
+        }
+        
+        body {
+            background-image: var(--background-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .glass-effect {
+            background: rgba(30, 30, 30, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .badge {
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        /* Dark mode styles */
+        .dark body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        
+        .dark .text-white {
+            color: #f1f5f9;
+        }
+        
+        .dark .text-white\/80 {
+            color: rgb(241 245 249 / 0.8);
+        }
+        
+        .dark .text-white\/70 {
+            color: rgb(241 245 249 / 0.7);
+        }
+        
+        .dark .text-white\/90 {
+            color: rgb(241 245 249 / 0.9);
+        }
+        
+        /* Theme transition */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-50 border-b border-white/10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://placehold.co/100x100?text=Logo" alt="希望学院 Logo" class="h-12 w-12 rounded-full object-contain">
+                <h1 class="text-xl font-bold text-white">希望学院</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-1">
+                <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">首页</a>
+                <a href="announcements.html" class="px-3 py-2 rounded-lg bg-white/10 text-white font-medium">公告</a>
+                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
+                <a href="#" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+            </nav>
+            
+            <!-- Theme toggle button -->
+            <div class="flex items-center space-x-3">
+                <button id="theme-toggle" class="text-white p-2 rounded-full hover:bg-white/10 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-4 pb-3 space-y-2">
+            <a href="index.html" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">首页</a>
+            <a href="announcements.html" class="block px-3 py-2 rounded-lg bg-white/10 text-white font-medium">公告</a>
+            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">关于我们</a>
+            <a href="#" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white transition">联系方式</a>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="py-4 glass-effect">
+        <div class="container mx-auto px-4">
+            <nav class="text-white/80 text-sm">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="index.html" class="hover:text-white transition">首页</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li class="text-white">所有公告</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Page Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar Filters -->
+            <aside class="lg:w-1/4">
+                <div class="glass-effect rounded-xl p-5 sticky top-24">
+                    <h2 class="text-xl font-bold text-white mb-4">筛选条件</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-white mb-3">按分类</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">全部</span>
+                                <span class="ml-auto text-xs text-white/70">24</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">学术</span>
+                                <span class="ml-auto text-xs text-white/70">8</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">活动</span>
+                                <span class="ml-auto text-xs text-white/70">6</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">行政</span>
+                                <span class="ml-auto text-xs text-white/70">5</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">紧急</span>
+                                <span class="ml-auto text-xs text-white/70">3</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">其他</span>
+                                <span class="ml-auto text-xs text-white/70">2</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-white mb-3">按时间</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center text-white/90">
+                                <input type="radio" name="time-filter" class="rounded-full bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">最近一周</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="radio" name="time-filter" class="rounded-full bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">最近一月</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="radio" name="time-filter" class="rounded-full bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">最近三月</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="radio" name="time-filter" class="rounded-full bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500">
+                                <span class="ml-2">全部时间</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-white mb-3">重要性</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">置顶公告</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">重要公告</span>
+                            </label>
+                            <label class="flex items-center text-white/90">
+                                <input type="checkbox" class="rounded bg-white/10 border-white/20 text-blue-600 focus:ring-blue-500" checked>
+                                <span class="ml-2">一般公告</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition">
+                        应用筛选
+                    </button>
+                </div>
+            </aside>
+            
+            <!-- Main Content -->
+            <div class="lg:w-3/4">
+                <div class="glass-effect rounded-xl p-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <h2 class="text-2xl font-bold text-white">所有公告</h2>
+                    
+                    <div class="w-full sm:w-auto">
+                        <div class="relative">
+                            <input type="text" placeholder="搜索公告..." class="w-full sm:w-64 p-2 pl-8 pr-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                            <i class="fas fa-search absolute left-2.5 top-2.5 text-white/50 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Announcements List -->
+                <div class="space-y-4">
+                    <!-- Announcement Item 1 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-red-500/20 text-red-300 text-xs font-semibold px-2.5 py-1 rounded">置顶</span>
+                            <span class="badge bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded">学术</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-05</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">期末考试时间安排</h3>
+                        <p class="text-white/80 mb-4">2025-2026学年第一学期期末考试时间表已发布，请同学们及时查看并做好复习准备。考试期间请注意遵守考场纪律...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 1.2k</span>
+                                <span><i class="fas fa-paperclip mr-1"></i> 附件(2)</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Announcement Item 2 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-yellow-500/20 text-yellow-300 text-xs font-semibold px-2.5 py-1 rounded">重要</span>
+                            <span class="badge bg-green-500/20 text-green-300 text-xs font-semibold px-2.5 py-1 rounded">行政</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-03</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">校园网络升级通知</h3>
+                        <p class="text-white/80 mb-4">为了提升网络服务质量和稳定性，学校将于本周末（12月10日-11日）对校园网络设备进行升级维护...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 856</span>
+                                <span><i class="fas fa-paperclip mr-1"></i> 附件(1)</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Announcement Item 3 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-purple-500/20 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded">活动</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-01</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">新年文艺晚会报名启动</h3>
+                        <p class="text-white/80 mb-4">2026年新年文艺晚会即将开幕，现面向全校师生开放节目报名。报名截止时间：12月20日...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 1.5k</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Announcement Item 4 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded">学术</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-07</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">图书馆座位预约系统更新</h3>
+                        <p class="text-white/80 mb-4">图书馆座位预约系统将于下周启用新版界面，新增夜间预约功能，请同学们及时了解新操作流程...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 623</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Announcement Item 5 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-green-500/20 text-green-300 text-xs font-semibold px-2.5 py-1 rounded">行政</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-06</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">寒假放假通知</h3>
+                        <p class="text-white/80 mb-4">根据校历安排，2026年寒假时间为1月20日至2月28日，请同学们提前做好相关安排，注意假期安全...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 2.1k</span>
+                                <span><i class="fas fa-paperclip mr-1"></i> 附件(1)</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                    
+                    <!-- Announcement Item 6 -->
+                    <article class="glass-effect rounded-xl p-5 transition duration-300">
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="badge bg-red-500/20 text-red-300 text-xs font-semibold px-2.5 py-1 rounded">紧急</span>
+                            <span class="text-xs text-white/70 ml-auto">2025-12-05</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">关于校园安全的重要提醒</h3>
+                        <p class="text-white/80 mb-4">近期校园周边发生几起安全事故，请同学们提高警惕，注意人身财产安全，避免单独外出...</p>
+                        <div class="flex flex-wrap justify-between items-center gap-3">
+                            <div class="flex items-center text-sm text-white/70">
+                                <span class="mr-4"><i class="fas fa-eye mr-1"></i> 3.4k</span>
+                            </div>
+                            <a href="announcement-detail.html" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                                查看详情
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="glass-effect rounded-xl p-5 mt-8">
+                    <div class="pagination flex flex-wrap justify-center gap-2">
+                        <a href="#" class="px-3 py-1.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition">上一页</a>
+                        <a href="#" class="px-3 py-1.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition active">1</a>
+                        <a href="#" class="px-3 py-1.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition">2</a>
+                        <a href="#" class="px-3 py-1.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition">3</a>
+                        <a href="#" class="px-3 py-1.5 rounded-lg border border-white/20 text-white hover:bg-white/10 transition">下一页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/10 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://placehold.co/100x100?text=Logo" alt="希望学院 Logo" class="h-10 w-10 rounded-full object-contain">
+                        <div>
+                            <h3 class="text-lg font-bold text-white">希望学院</h3>
+                            <p class="text-white/70 text-sm">公告信息发布平台</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-white/70 hover:text-white transition">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-6 pt-6 text-center text-white/70 text-sm">
+                <p>&copy; 2025 希望学院. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for theme toggle and mobile menu -->
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme preference or respect system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const currentTheme = savedTheme || systemTheme;
+        
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            
+            // Save theme preference
+            const isDark = htmlElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
